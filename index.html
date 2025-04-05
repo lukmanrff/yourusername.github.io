@@ -67,12 +67,12 @@
       margin-bottom: 1rem;
     }
 
-    .skills ul {
+    .skills ul, .job-categories ul {
       list-style: none;
       padding: 0;
     }
 
-    .skills li {
+    .skills li, .job-categories li {
       background-color: var(--card-bg);
       margin: 0.5rem 0;
       padding: 0.5rem 1rem;
@@ -130,6 +130,19 @@
     </ul>
   </section>
 
+  <!-- Add new section for job categories -->
+  <section class="job-categories">
+    <h2>Job Categories</h2>
+    <ul>
+      <li><strong>Current Jobs:</strong></li>
+      <li>Ezee - Hospitality</li>
+      <li>Sonicboom - Cashless Payment Device</li>
+      <li>Qorva - General IT Service</li>
+      <li><strong>Past Jobs:</strong></li>
+      <!-- Add past job categories here if needed -->
+    </ul>
+  </section>
+
   <section>
     <h2>Contact</h2>
     <p>📧 Email: <em>yourname@example.com</em></p>
@@ -164,7 +177,7 @@
     const delay = 1000;
 
     function loop() {
-      document.getElementById('typewriter').innerHTML = currentPhrase.join("");
+      document.getElementById('typewriter').innerHTML = currentPhrase.join(" ");
 
       if (!isDeleting && j <= phrases[i].length) {
         currentPhrase.push(phrases[i][j]);
