@@ -5,39 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My GitHub Page</title>
   <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --text-color: #333;
+      --card-bg: #ecf0f1;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f5f5f5;
+      --card-bg: #2c3e50;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f6f8;
-      color: #333;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
     }
+
     header {
       background-color: #2c3e50;
       color: white;
       padding: 2rem;
       text-align: center;
+      position: relative;
     }
+
+    #typewriter {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: #f1c40f;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: white;
+      color: #2c3e50;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     section {
       padding: 2rem;
       max-width: 800px;
       margin: auto;
     }
+
     h2 {
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
     }
+
     .skills ul {
       list-style: none;
       padding: 0;
     }
+
     .skills li {
-      background-color: #ecf0f1;
+      background-color: var(--card-bg);
       margin: 0.5rem 0;
       padding: 0.5rem 1rem;
       border-radius: 5px;
     }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -45,12 +95,17 @@
       font-size: 0.9rem;
       margin-top: 3rem;
     }
+
+    footer.dark {
+      background-color: #2c3e50;
+    }
   </style>
 </head>
 <body>
   <header>
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
     <h1>Hello! 👋 I'm a Self-Learner</h1>
-    <p>Trying, growing, and building — one step at a time.</p>
+    <div id="typewriter"></div>
   </header>
 
   <section>
@@ -84,5 +139,53 @@
   <footer>
     &copy; 2025 - Made with patience and progress ✨
   </footer>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      document.querySelector('footer').classList.toggle('dark');
+    }
+
+    // Typing Animation
+    const phrases = [
+      "IT Support Specialist 💻",
+      "Python Learner 🐍",
+      "Habit Builder 📈",
+      "Always Improving 🚀"
+    ];
+
+    let i = 0;
+    let j = 0;
+    let currentPhrase = [];
+    let isDeleting = false;
+    const typeSpeed = 100;
+    const eraseSpeed = 50;
+    const delay = 1000;
+
+    function loop() {
+      document.getElementById('typewriter').innerHTML = currentPhrase.join("");
+
+      if (!isDeleting && j <= phrases[i].length) {
+        currentPhrase.push(phrases[i][j]);
+        j++;
+        setTimeout(loop, typeSpeed);
+      } else if (isDeleting && j > 0) {
+        currentPhrase.pop();
+        j--;
+        setTimeout(loop, eraseSpeed);
+      } else if (!isDeleting && j === phrases[i].length) {
+        isDeleting = true;
+        setTimeout(loop, delay);
+      } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+        currentPhrase = [];
+        setTimeout(loop, typeSpeed);
+      }
+    }
+
+    loop();
+  </script>
 </body>
 </html>
